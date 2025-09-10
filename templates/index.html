@@ -1,55 +1,108 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Gleam Fraud Detector Demo</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fraud Detection Report</title>
     <style>
-      body { font-family: Arial; padding: 20px; }
-      table { border-collapse: collapse; width: 100%; }
-      td, th { border: 1px solid #ddd; padding: 8px; }
-      tr:nth-child(even){background-color:#f9f9f9;}
-      .high { background:#ffcccc; }
-      .medium { background:#fff0b3; }
-      .low { background:#ccffcc; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f9f9f9;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background: #f2f2f2;
+        }
+        tr:hover {
+            background: #f5f5f5;
+        }
+        .severity-high { color: red; font-weight: bold; }
+        .severity-medium { color: orange; font-weight: bold; }
+        .severity-low { color: green; font-weight: bold; }
+        textarea {
+            width: 95%;
+            min-height: 60px;
+            margin: 6px 0;
+            resize: vertical;
+            padding: 6px;
+        }
+        button {
+            margin-top: 4px;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            background: #2196F3;
+            color: white;
+            cursor: pointer;
+        }
+        button:disabled {
+            background: #aaa;
+            cursor: not-allowed;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #2196F3;
+        }
     </style>
-  </head>
-  <body>
-    <h1>Fraud Detection Report (demo)</h1>
+</head>
+<body>
+    <h1>Fraud Detection Report (Demo)</h1>
+
     <table>
-      <tr><th>Entry ID</th><th>Email</th><th>IP</th><th>Flags</th><th>Severity</th><th>Appeal</th></tr>
-      {% for r in results %}
-      <tr class="{{r.severity}}">
-        <td>{{ r.entry_id }}</td>
-        <td>{{ r.email }}</td>
-        <td>{{ r.ip }}</td>
-        <td>
-          {% if r.flags %}
-            <ul>{% for f in r.flags %}<li>{{ f }}</li>{% endfor %}</ul>
-          {% else %}
-            No issues
-          {% endif %}
-        </td>
-        <td>{{ r.severity }}</td>
-        <td>
-          <button onclick="appeal('{{ r.entry_id }}')">Appeal</button>
-        </td>
-      </tr>
-      {% endfor %}
+        <tr>
+            <th>Entry ID</th>
+            <th>Email</th>
+            <th>IP</th>
+            <th>Flags</th>
+            <th>Severity</th>
+            <th>Appeal</th>
+        </tr>
+        {% for result in results %}
+        <tr>
+            <td>{{ result.id }}</td>
+            <td>{{ result.email }}</td>
+            <td>{{ result.ip }}</td>
+            <td>
+                <ul>
+                    {% for flag in result.flags %}
+                    <li>{{ flag }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+            <td class="severity-{{ result.severity }}">
+                {{ result.severity | capitalize }}
+            </td>
+            <td>
+                {% if not result.appealed %}
+                <form action="{{ url_for('appeal') }}" method="post">
+                    <input type="hidden" name="email" value="{{ result.email }}">
+                    <input type="hidden" name="ip" value="{{ result.ip }}">
+                    <textarea name="message" placeholder="Explain why this is not fraud..." required></textarea>
+                    <button type="submit">Submit Appeal</button>
+                </form>
+                {% else %}
+                <strong>Appeal Submitted ✅</strong>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
     </table>
 
-    <script>
-      function appeal(entryId){
-        const contact = prompt("Enter your email/phone to be contacted about the appeal");
-        const reason = prompt("Why do you think this was flagged incorrectly?");
-        fetch("/appeal", {
-          method: "POST",
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify({entry_id: entryId, contact: contact, reason: reason, ts: new Date().toISOString()})
-        }).then(r => {
-          if(r.ok) alert("Appeal submitted — demo only.");
-          else alert("Error submitting appeal");
-        });
-      }
-    </script>
-  </body>
+    <a href="/appeals">📄 View Appeals Dashboard</a>
+</body>
 </html>

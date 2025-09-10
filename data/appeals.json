@@ -698,7 +698,26 @@
     "duplicate_email": true,
     "actions_per_minute": 3,
     "severity": "low"
+  },
+  {
+    "email": "user1003@mailinator.com",
+    "ip": "8.8.8.8",
+    "status": "approved"
+  },
+  {
+    "email": "user1001@gmail.com",
+    "ip": "192.168.1.10",
+    "status": "pending"
+  },
+  {
+    "email": "user7201@mailinator.com",
+    "ip": "51.221.157.222",
+    "status": "rejected"
+  },
+  {
+    "email": "user8789@hotmail.com",
+    "ip": "53.181.125.101",
+    "status": "rejected",
+    "message": "ip is correct"
   }
 ]
-
-
