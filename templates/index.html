@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Gleam Fraud Detector Demo</title>
+    <style>
+      body { font-family: Arial; padding: 20px; }
+      table { border-collapse: collapse; width: 100%; }
+      td, th { border: 1px solid #ddd; padding: 8px; }
+      tr:nth-child(even){background-color:#f9f9f9;}
+      .high { background:#ffcccc; }
+      .medium { background:#fff0b3; }
+      .low { background:#ccffcc; }
+    </style>
+  </head>
+  <body>
+    <h1>Fraud Detection Report (demo)</h1>
+    <table>
+      <tr><th>Entry ID</th><th>Email</th><th>IP</th><th>Flags</th><th>Severity</th><th>Appeal</th></tr>
+      {% for r in results %}
+      <tr class="{{r.severity}}">
+        <td>{{ r.entry_id }}</td>
+        <td>{{ r.email }}</td>
+        <td>{{ r.ip }}</td>
+        <td>
+          {% if r.flags %}
+            <ul>{% for f in r.flags %}<li>{{ f }}</li>{% endfor %}</ul>
+          {% else %}
+            No issues
+          {% endif %}
+        </td>
+        <td>{{ r.severity }}</td>
+        <td>
+          <button onclick="appeal('{{ r.entry_id }}')">Appeal</button>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <script>
+      function appeal(entryId){
+        const contact = prompt("Enter your email/phone to be contacted about the appeal");
+        const reason = prompt("Why do you think this was flagged incorrectly?");
+        fetch("/appeal", {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({entry_id: entryId, contact: contact, reason: reason, ts: new Date().toISOString()})
+        }).then(r => {
+          if(r.ok) alert("Appeal submitted — demo only.");
+          else alert("Error submitting appeal");
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,704 @@
+[
+  {
+    "email": "user7058@hotmail.com",
+    "ip": "35.175.202.161",
+    "duplicate_email": false,
+    "actions_per_minute": 35,
+    "severity": "high"
+  },
+  {
+    "email": "user6164@yahoo.com",
+    "ip": "134.113.211.20",
+    "duplicate_email": true,
+    "actions_per_minute": 15,
+    "severity": "medium"
+  },
+  {
+    "email": "user6729@gmail.com",
+    "ip": "176.244.190.149",
+    "duplicate_email": false,
+    "actions_per_minute": 18,
+    "severity": "medium"
+  },
+  {
+    "email": "user4096@gmail.com",
+    "ip": "45.14.215.101",
+    "duplicate_email": true,
+    "actions_per_minute": 37,
+    "severity": "high"
+  },
+  {
+    "email": "user2058@mailinator.com",
+    "ip": "246.99.198.177",
+    "duplicate_email": true,
+    "actions_per_minute": 10,
+    "severity": "low"
+  },
+  {
+    "email": "user1296@hotmail.com",
+    "ip": "183.107.212.247",
+    "duplicate_email": true,
+    "actions_per_minute": 6,
+    "severity": "low"
+  },
+  {
+    "email": "user6353@gmail.com",
+    "ip": "92.91.93.20",
+    "duplicate_email": true,
+    "actions_per_minute": 41,
+    "severity": "high"
+  },
+  {
+    "email": "user4759@hotmail.com",
+    "ip": "51.182.170.195",
+    "duplicate_email": true,
+    "actions_per_minute": 14,
+    "severity": "medium"
+  },
+  {
+    "email": "user5868@mailinator.com",
+    "ip": "159.225.117.145",
+    "duplicate_email": true,
+    "actions_per_minute": 16,
+    "severity": "medium"
+  },
+  {
+    "email": "user5137@hotmail.com",
+    "ip": "44.39.15.64",
+    "duplicate_email": false,
+    "actions_per_minute": 15,
+    "severity": "medium"
+  },
+  {
+    "email": "user5894@yahoo.com",
+    "ip": "138.231.24.163",
+    "duplicate_email": true,
+    "actions_per_minute": 47,
+    "severity": "high"
+  },
+  {
+    "email": "user4478@yahoo.com",
+    "ip": "221.233.173.16",
+    "duplicate_email": false,
+    "actions_per_minute": 26,
+    "severity": "medium"
+  },
+  {
+    "email": "user2828@yahoo.com",
+    "ip": "62.72.224.62",
+    "duplicate_email": true,
+    "actions_per_minute": 31,
+    "severity": "high"
+  },
+  {
+    "email": "user4522@yahoo.com",
+    "ip": "181.94.247.6",
+    "duplicate_email": true,
+    "actions_per_minute": 1,
+    "severity": "low"
+  },
+  {
+    "email": "user2768@yahoo.com",
+    "ip": "3.166.145.186",
+    "duplicate_email": false,
+    "actions_per_minute": 15,
+    "severity": "medium"
+  },
+  {
+    "email": "user8324@hotmail.com",
+    "ip": "196.119.53.39",
+    "duplicate_email": false,
+    "actions_per_minute": 20,
+    "severity": "medium"
+  },
+  {
+    "email": "user7325@mailinator.com",
+    "ip": "193.68.147.39",
+    "duplicate_email": true,
+    "actions_per_minute": 18,
+    "severity": "medium"
+  },
+  {
+    "email": "user2963@gmail.com",
+    "ip": "179.72.171.121",
+    "duplicate_email": true,
+    "actions_per_minute": 35,
+    "severity": "high"
+  },
+  {
+    "email": "user9861@hotmail.com",
+    "ip": "253.66.120.68",
+    "duplicate_email": false,
+    "actions_per_minute": 18,
+    "severity": "medium"
+  },
+  {
+    "email": "user1266@gmail.com",
+    "ip": "131.8.46.114",
+    "duplicate_email": true,
+    "actions_per_minute": 5,
+    "severity": "low"
+  },
+  {
+    "email": "user1114@mailinator.com",
+    "ip": "168.9.105.168",
+    "duplicate_email": false,
+    "actions_per_minute": 8,
+    "severity": "low"
+  },
+  {
+    "email": "user8275@mailinator.com",
+    "ip": "235.0.156.113",
+    "duplicate_email": false,
+    "actions_per_minute": 26,
+    "severity": "medium"
+  },
+  {
+    "email": "user2100@yahoo.com",
+    "ip": "53.128.185.139",
+    "duplicate_email": false,
+    "actions_per_minute": 47,
+    "severity": "high"
+  },
+  {
+    "email": "user5246@hotmail.com",
+    "ip": "88.213.158.43",
+    "duplicate_email": true,
+    "actions_per_minute": 25,
+    "severity": "medium"
+  },
+  {
+    "email": "user3254@gmail.com",
+    "ip": "168.109.25.104",
+    "duplicate_email": true,
+    "actions_per_minute": 32,
+    "severity": "high"
+  },
+  {
+    "email": "user7064@hotmail.com",
+    "ip": "25.247.100.250",
+    "duplicate_email": true,
+    "actions_per_minute": 48,
+    "severity": "high"
+  },
+  {
+    "email": "user9993@gmail.com",
+    "ip": "180.41.140.80",
+    "duplicate_email": true,
+    "actions_per_minute": 17,
+    "severity": "medium"
+  },
+  {
+    "email": "user6975@hotmail.com",
+    "ip": "105.112.216.10",
+    "duplicate_email": false,
+    "actions_per_minute": 48,
+    "severity": "high"
+  },
+  {
+    "email": "user7422@mailinator.com",
+    "ip": "204.235.63.195",
+    "duplicate_email": false,
+    "actions_per_minute": 49,
+    "severity": "high"
+  },
+  {
+    "email": "user4692@hotmail.com",
+    "ip": "22.109.20.59",
+    "duplicate_email": false,
+    "actions_per_minute": 6,
+    "severity": "low"
+  },
+  {
+    "email": "user4556@gmail.com",
+    "ip": "83.196.9.14",
+    "duplicate_email": false,
+    "actions_per_minute": 8,
+    "severity": "low"
+  },
+  {
+    "email": "user5686@mailinator.com",
+    "ip": "42.36.141.199",
+    "duplicate_email": true,
+    "actions_per_minute": 24,
+    "severity": "medium"
+  },
+  {
+    "email": "user4974@yahoo.com",
+    "ip": "253.128.27.5",
+    "duplicate_email": false,
+    "actions_per_minute": 46,
+    "severity": "high"
+  },
+  {
+    "email": "user5834@gmail.com",
+    "ip": "217.214.38.34",
+    "duplicate_email": false,
+    "actions_per_minute": 9,
+    "severity": "low"
+  },
+  {
+    "email": "user7212@yahoo.com",
+    "ip": "59.254.6.143",
+    "duplicate_email": false,
+    "actions_per_minute": 20,
+    "severity": "medium"
+  },
+  {
+    "email": "user3447@yahoo.com",
+    "ip": "192.229.127.128",
+    "duplicate_email": true,
+    "actions_per_minute": 39,
+    "severity": "high"
+  },
+  {
+    "email": "user4166@hotmail.com",
+    "ip": "126.123.57.192",
+    "duplicate_email": false,
+    "actions_per_minute": 3,
+    "severity": "low"
+  },
+  {
+    "email": "user2800@hotmail.com",
+    "ip": "133.158.168.161",
+    "duplicate_email": false,
+    "actions_per_minute": 18,
+    "severity": "medium"
+  },
+  {
+    "email": "user4326@mailinator.com",
+    "ip": "55.142.1.105",
+    "duplicate_email": false,
+    "actions_per_minute": 45,
+    "severity": "high"
+  },
+  {
+    "email": "user7132@hotmail.com",
+    "ip": "71.87.155.139",
+    "duplicate_email": false,
+    "actions_per_minute": 1,
+    "severity": "low"
+  },
+  {
+    "email": "user3118@hotmail.com",
+    "ip": "240.48.126.136",
+    "duplicate_email": false,
+    "actions_per_minute": 5,
+    "severity": "low"
+  },
+  {
+    "email": "user2266@gmail.com",
+    "ip": "177.37.164.92",
+    "duplicate_email": true,
+    "actions_per_minute": 24,
+    "severity": "medium"
+  },
+  {
+    "email": "user1179@hotmail.com",
+    "ip": "194.221.126.200",
+    "duplicate_email": true,
+    "actions_per_minute": 43,
+    "severity": "high"
+  },
+  {
+    "email": "user5080@mailinator.com",
+    "ip": "152.92.115.150",
+    "duplicate_email": true,
+    "actions_per_minute": 48,
+    "severity": "high"
+  },
+  {
+    "email": "user8561@hotmail.com",
+    "ip": "104.125.249.82",
+    "duplicate_email": false,
+    "actions_per_minute": 17,
+    "severity": "medium"
+  },
+  {
+    "email": "user6908@gmail.com",
+    "ip": "33.7.199.213",
+    "duplicate_email": true,
+    "actions_per_minute": 30,
+    "severity": "medium"
+  },
+  {
+    "email": "user5781@yahoo.com",
+    "ip": "73.77.67.136",
+    "duplicate_email": true,
+    "actions_per_minute": 42,
+    "severity": "high"
+  },
+  {
+    "email": "user2018@mailinator.com",
+    "ip": "70.3.192.248",
+    "duplicate_email": true,
+    "actions_per_minute": 21,
+    "severity": "medium"
+  },
+  {
+    "email": "user3165@yahoo.com",
+    "ip": "207.196.119.167",
+    "duplicate_email": false,
+    "actions_per_minute": 1,
+    "severity": "low"
+  },
+  {
+    "email": "user8591@mailinator.com",
+    "ip": "159.167.123.81",
+    "duplicate_email": false,
+    "actions_per_minute": 28,
+    "severity": "medium"
+  },
+  {
+    "email": "user4282@hotmail.com",
+    "ip": "230.236.225.182",
+    "duplicate_email": true,
+    "actions_per_minute": 50,
+    "severity": "high"
+  },
+  {
+    "email": "user3207@mailinator.com",
+    "ip": "96.136.48.39",
+    "duplicate_email": false,
+    "actions_per_minute": 40,
+    "severity": "high"
+  },
+  {
+    "email": "user6681@yahoo.com",
+    "ip": "50.122.16.174",
+    "duplicate_email": true,
+    "actions_per_minute": 33,
+    "severity": "high"
+  },
+  {
+    "email": "user5527@hotmail.com",
+    "ip": "167.187.141.30",
+    "duplicate_email": true,
+    "actions_per_minute": 49,
+    "severity": "high"
+  },
+  {
+    "email": "user9833@yahoo.com",
+    "ip": "31.58.191.206",
+    "duplicate_email": false,
+    "actions_per_minute": 46,
+    "severity": "high"
+  },
+  {
+    "email": "user7272@mailinator.com",
+    "ip": "132.162.39.199",
+    "duplicate_email": false,
+    "actions_per_minute": 44,
+    "severity": "high"
+  },
+  {
+    "email": "user7445@mailinator.com",
+    "ip": "203.46.94.41",
+    "duplicate_email": false,
+    "actions_per_minute": 8,
+    "severity": "low"
+  },
+  {
+    "email": "user6700@mailinator.com",
+    "ip": "62.125.103.130",
+    "duplicate_email": false,
+    "actions_per_minute": 17,
+    "severity": "medium"
+  },
+  {
+    "email": "user6591@yahoo.com",
+    "ip": "111.90.6.9",
+    "duplicate_email": true,
+    "actions_per_minute": 50,
+    "severity": "high"
+  },
+  {
+    "email": "user7510@hotmail.com",
+    "ip": "111.104.209.187",
+    "duplicate_email": true,
+    "actions_per_minute": 5,
+    "severity": "low"
+  },
+  {
+    "email": "user7438@mailinator.com",
+    "ip": "34.178.41.190",
+    "duplicate_email": false,
+    "actions_per_minute": 23,
+    "severity": "medium"
+  },
+  {
+    "email": "user4273@gmail.com",
+    "ip": "92.28.53.119",
+    "duplicate_email": false,
+    "actions_per_minute": 44,
+    "severity": "high"
+  },
+  {
+    "email": "user8962@gmail.com",
+    "ip": "83.162.100.245",
+    "duplicate_email": true,
+    "actions_per_minute": 33,
+    "severity": "high"
+  },
+  {
+    "email": "user7740@hotmail.com",
+    "ip": "65.135.125.195",
+    "duplicate_email": false,
+    "actions_per_minute": 4,
+    "severity": "low"
+  },
+  {
+    "email": "user4065@hotmail.com",
+    "ip": "90.76.13.255",
+    "duplicate_email": true,
+    "actions_per_minute": 6,
+    "severity": "low"
+  },
+  {
+    "email": "user9362@hotmail.com",
+    "ip": "189.156.127.84",
+    "duplicate_email": true,
+    "actions_per_minute": 17,
+    "severity": "medium"
+  },
+  {
+    "email": "user4092@yahoo.com",
+    "ip": "129.180.99.206",
+    "duplicate_email": true,
+    "actions_per_minute": 29,
+    "severity": "medium"
+  },
+  {
+    "email": "user2055@mailinator.com",
+    "ip": "198.107.161.95",
+    "duplicate_email": true,
+    "actions_per_minute": 15,
+    "severity": "medium"
+  },
+  {
+    "email": "user5000@gmail.com",
+    "ip": "194.31.151.143",
+    "duplicate_email": true,
+    "actions_per_minute": 26,
+    "severity": "medium"
+  },
+  {
+    "email": "user1408@yahoo.com",
+    "ip": "139.51.101.172",
+    "duplicate_email": true,
+    "actions_per_minute": 23,
+    "severity": "medium"
+  },
+  {
+    "email": "user2790@mailinator.com",
+    "ip": "155.77.14.134",
+    "duplicate_email": false,
+    "actions_per_minute": 18,
+    "severity": "medium"
+  },
+  {
+    "email": "user6224@mailinator.com",
+    "ip": "150.71.144.45",
+    "duplicate_email": false,
+    "actions_per_minute": 21,
+    "severity": "medium"
+  },
+  {
+    "email": "user6618@gmail.com",
+    "ip": "215.167.250.207",
+    "duplicate_email": false,
+    "actions_per_minute": 15,
+    "severity": "medium"
+  },
+  {
+    "email": "user6652@mailinator.com",
+    "ip": "114.25.114.92",
+    "duplicate_email": false,
+    "actions_per_minute": 29,
+    "severity": "medium"
+  },
+  {
+    "email": "user5151@hotmail.com",
+    "ip": "118.68.244.172",
+    "duplicate_email": false,
+    "actions_per_minute": 38,
+    "severity": "high"
+  },
+  {
+    "email": "user4676@yahoo.com",
+    "ip": "159.92.134.215",
+    "duplicate_email": false,
+    "actions_per_minute": 26,
+    "severity": "medium"
+  },
+  {
+    "email": "user7281@gmail.com",
+    "ip": "69.86.108.158",
+    "duplicate_email": false,
+    "actions_per_minute": 38,
+    "severity": "high"
+  },
+  {
+    "email": "user9169@gmail.com",
+    "ip": "3.149.102.212",
+    "duplicate_email": true,
+    "actions_per_minute": 38,
+    "severity": "high"
+  },
+  {
+    "email": "user2870@mailinator.com",
+    "ip": "119.165.146.211",
+    "duplicate_email": true,
+    "actions_per_minute": 34,
+    "severity": "high"
+  },
+  {
+    "email": "user7192@yahoo.com",
+    "ip": "22.51.4.205",
+    "duplicate_email": true,
+    "actions_per_minute": 14,
+    "severity": "medium"
+  },
+  {
+    "email": "user8599@hotmail.com",
+    "ip": "53.83.198.41",
+    "duplicate_email": false,
+    "actions_per_minute": 5,
+    "severity": "low"
+  },
+  {
+    "email": "user1247@hotmail.com",
+    "ip": "110.186.131.223",
+    "duplicate_email": true,
+    "actions_per_minute": 49,
+    "severity": "high"
+  },
+  {
+    "email": "user7284@hotmail.com",
+    "ip": "97.216.38.112",
+    "duplicate_email": false,
+    "actions_per_minute": 2,
+    "severity": "low"
+  },
+  {
+    "email": "user8553@hotmail.com",
+    "ip": "118.224.81.65",
+    "duplicate_email": false,
+    "actions_per_minute": 44,
+    "severity": "high"
+  },
+  {
+    "email": "user5530@hotmail.com",
+    "ip": "221.195.209.216",
+    "duplicate_email": false,
+    "actions_per_minute": 40,
+    "severity": "high"
+  },
+  {
+    "email": "user8239@hotmail.com",
+    "ip": "179.253.148.24",
+    "duplicate_email": false,
+    "actions_per_minute": 8,
+    "severity": "low"
+  },
+  {
+    "email": "user4867@yahoo.com",
+    "ip": "10.177.114.20",
+    "duplicate_email": false,
+    "actions_per_minute": 3,
+    "severity": "low"
+  },
+  {
+    "email": "user1522@mailinator.com",
+    "ip": "180.88.84.162",
+    "duplicate_email": false,
+    "actions_per_minute": 6,
+    "severity": "low"
+  },
+  {
+    "email": "user8772@mailinator.com",
+    "ip": "171.75.117.4",
+    "duplicate_email": true,
+    "actions_per_minute": 46,
+    "severity": "high"
+  },
+  {
+    "email": "user6366@gmail.com",
+    "ip": "95.182.197.11",
+    "duplicate_email": false,
+    "actions_per_minute": 4,
+    "severity": "low"
+  },
+  {
+    "email": "user6088@gmail.com",
+    "ip": "71.167.132.21",
+    "duplicate_email": true,
+    "actions_per_minute": 1,
+    "severity": "low"
+  },
+  {
+    "email": "user7203@hotmail.com",
+    "ip": "184.151.137.186",
+    "duplicate_email": false,
+    "actions_per_minute": 18,
+    "severity": "medium"
+  },
+  {
+    "email": "user1016@yahoo.com",
+    "ip": "77.31.100.244",
+    "duplicate_email": true,
+    "actions_per_minute": 41,
+    "severity": "high"
+  },
+  {
+    "email": "user9400@mailinator.com",
+    "ip": "3.39.242.152",
+    "duplicate_email": false,
+    "actions_per_minute": 25,
+    "severity": "medium"
+  },
+  {
+    "email": "user5885@mailinator.com",
+    "ip": "165.187.163.52",
+    "duplicate_email": false,
+    "actions_per_minute": 38,
+    "severity": "high"
+  },
+  {
+    "email": "user1005@hotmail.com",
+    "ip": "159.81.196.146",
+    "duplicate_email": true,
+    "actions_per_minute": 44,
+    "severity": "high"
+  },
+  {
+    "email": "user9512@mailinator.com",
+    "ip": "118.78.207.211",
+    "duplicate_email": false,
+    "actions_per_minute": 7,
+    "severity": "low"
+  },
+  {
+    "email": "user9075@hotmail.com",
+    "ip": "23.61.59.78",
+    "duplicate_email": false,
+    "actions_per_minute": 3,
+    "severity": "low"
+  },
+  {
+    "email": "user2437@hotmail.com",
+    "ip": "35.165.111.182",
+    "duplicate_email": true,
+    "actions_per_minute": 15,
+    "severity": "medium"
+  },
+  {
+    "email": "user8475@mailinator.com",
+    "ip": "104.44.196.231",
+    "duplicate_email": true,
+    "actions_per_minute": 3,
+    "severity": "low"
+  }
+]
+
+
