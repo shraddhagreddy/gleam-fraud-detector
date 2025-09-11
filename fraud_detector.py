@@ -60,7 +60,12 @@ def check_entry(entry):
         flags.append(("IP check failed", "low"))
 
     # Bot-like behavior → High
-    if entry["actions_per_minute"] > 20:
+    #if entry["actions_per_minute"] > 20:
+    #    flags.append(("Bot-like behavior (very high actions/min)", "high"))
+    # Bot-like behavior → High
+    actions = entry.get("actions_per_minute", 0)  # default 0 if missing
+    if actions > 20:
         flags.append(("Bot-like behavior (very high actions/min)", "high"))
+
 
     return flags
