@@ -1,108 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Fraud Detection Report</title>
+    <title>Fraud Detection Dashboard</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background: #f9f9f9;
-        }
-        h1 {
-            color: #333;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background: #f2f2f2;
-        }
-        tr:hover {
-            background: #f5f5f5;
-        }
-        .severity-high { color: red; font-weight: bold; }
-        .severity-medium { color: orange; font-weight: bold; }
-        .severity-low { color: green; font-weight: bold; }
-        textarea {
-            width: 95%;
-            min-height: 60px;
-            margin: 6px 0;
-            resize: vertical;
-            padding: 6px;
-        }
-        button {
-            margin-top: 4px;
-            padding: 6px 12px;
-            border: none;
-            border-radius: 4px;
-            background: #2196F3;
-            color: white;
-            cursor: pointer;
-        }
-        button:disabled {
-            background: #aaa;
-            cursor: not-allowed;
-        }
-        a {
-            display: inline-block;
-            margin-top: 20px;
-            text-decoration: none;
-            color: #2196F3;
-        }
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background-color: #f4f4f4; }
+        .low { background: #d4edda; }
+        .medium { background: #fff3cd; }
+        .high { background: #f8d7da; }
     </style>
 </head>
 <body>
-    <h1>Fraud Detection Report (Demo)</h1>
-
+    <h1>Fraud Detection Report</h1>
     <table>
         <tr>
-            <th>Entry ID</th>
+            <th>ID</th>
             <th>Email</th>
             <th>IP</th>
             <th>Flags</th>
             <th>Severity</th>
             <th>Appeal</th>
         </tr>
-        {% for result in results %}
-        <tr>
-            <td>{{ result.id }}</td>
-            <td>{{ result.email }}</td>
-            <td>{{ result.ip }}</td>
+        {% for r in results %}
+        <tr class="{{ r.severity }}">
+            <td>{{ r.id }}</td>
+            <td>{{ r.email }}</td>
+            <td>{{ r.ip }}</td>
             <td>
                 <ul>
-                    {% for flag in result.flags %}
-                    <li>{{ flag }}</li>
+                    {% for f in r.flags %}
+                    <li>{{ f }}</li>
                     {% endfor %}
                 </ul>
             </td>
-            <td class="severity-{{ result.severity }}">
-                {{ result.severity | capitalize }}
-            </td>
+            <td><strong>{{ r.severity|capitalize }}</strong></td>
             <td>
-                {% if not result.appealed %}
-                <form action="{{ url_for('appeal') }}" method="post">
-                    <input type="hidden" name="email" value="{{ result.email }}">
-                    <input type="hidden" name="ip" value="{{ result.ip }}">
-                    <textarea name="message" placeholder="Explain why this is not fraud..." required></textarea>
+                {% if not r.appealed %}
+                <form action="/appeal" method="post">
+                    <input type="hidden" name="email" value="{{ r.email }}">
+                    <input type="hidden" name="ip" value="{{ r.ip }}">
+                    <textarea name="message" placeholder="Reason for appeal" required></textarea><br>
                     <button type="submit">Submit Appeal</button>
                 </form>
                 {% else %}
-                <strong>Appeal Submitted ✅</strong>
+                ✅ Already Appealed
                 {% endif %}
             </td>
         </tr>
         {% endfor %}
     </table>
-
-    <a href="/appeals">📄 View Appeals Dashboard</a>
+    <br>
+    <a href="/appeals">📋 View Appeals Dashboard</a>
 </body>
 </html>
