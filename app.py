@@ -5,6 +5,9 @@ from fraud_detector import check_entry
 from collections import Counter
 from datetime import datetime, timezone
 import json
+import joblib
+import numpy as np
+import os
 
 app = Flask(__name__)
 
@@ -34,6 +37,27 @@ def load_entries():
     with open(DATA_FILE) as f:
         return json.load(f)
 
+# --- Load ML Model ---
+MODEL_PATH = "models/fraud_model.pkl"
+try:
+    model = joblib.load(MODEL_PATH)
+except Exception as e:
+    print(f"⚠️ Could not load model: {e}")
+    model = None
+
+# --- Helper: Extract features for ML model ---
+def extract_features(entry):
+    """
+    Convert entry into numeric features expected by model.
+    Features: actions_per_minute, domain_type (0/1), ip_asn, duplicate_email
+    """
+    return np.array([[
+        entry.get("actions_per_minute", 0),
+        1 if entry.get("domain_type") == "disposable" else 0,
+        int(entry.get("ip_asn", 0)),
+        1 if entry.get("duplicate_email", False) else 0
+    ]])
+
 # --- Build fraud detection results ---
 def build_results(entries):
     appeals = Appeal.query.all()
@@ -42,6 +66,14 @@ def build_results(entries):
 
     for i, entry in enumerate(entries, start=1):
         flags = check_entry(entry)
+
+        # ML confidence
+        confidence = 0.0
+        if model:
+            features = extract_features(entry)
+            prob = model.predict_proba(features)[0][1]  # Probability of fraud
+            confidence = round(float(prob), 2)
+
         if not flags:
             results.append({
                 "id": i,
@@ -49,6 +81,7 @@ def build_results(entries):
                 "ip": entry["ip"],
                 "flags": ["No issues detected ✅"],
                 "severity": "low",
+                "confidence": confidence,
                 "appealed": (entry["email"], entry["ip"]) in appealed_lookup,
                 "timestamp": entry.get("timestamp", datetime.now(timezone.utc).isoformat())
             })
@@ -68,6 +101,7 @@ def build_results(entries):
             "ip": entry["ip"],
             "flags": [f[0] for f in flags],
             "severity": overall_severity,
+            "confidence": confidence,
             "appealed": (entry["email"], entry["ip"]) in appealed_lookup,
             "timestamp": entry.get("timestamp", datetime.now(timezone.utc).isoformat())
         })
@@ -155,8 +189,21 @@ def api_check():
         return jsonify({"error": "Missing email or ip"}), 400
 
     flags = check_entry(data)
+
+    confidence = 0.0
+    if model:
+        features = extract_features(data)
+        prob = model.predict_proba(features)[0][1]
+        confidence = round(float(prob), 2)
+
     if not flags:
-        result = {"email": data["email"], "ip": data["ip"], "flags": ["No issues detected ✅"], "severity": "low"}
+        result = {
+            "email": data["email"],
+            "ip": data["ip"],
+            "flags": ["No issues detected ✅"],
+            "severity": "low",
+            "confidence": confidence
+        }
     else:
         severity_levels = [f[1] for f in flags]
         if "high" in severity_levels:
@@ -165,7 +212,13 @@ def api_check():
             overall_severity = "medium"
         else:
             overall_severity = "low"
-        result = {"email": data["email"], "ip": data["ip"], "flags": [f[0] for f in flags], "severity": overall_severity}
+        result = {
+            "email": data["email"],
+            "ip": data["ip"],
+            "flags": [f[0] for f in flags],
+            "severity": overall_severity,
+            "confidence": confidence
+        }
     return jsonify(result), 200
 
 @app.route("/api/results", methods=["GET"])

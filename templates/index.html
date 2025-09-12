@@ -10,6 +10,11 @@
         .low { background: #d4edda; }
         .medium { background: #fff3cd; }
         .high { background: #f8d7da; }
+        .conf-low { color: green; font-weight: bold; }
+        .conf-med { color: orange; font-weight: bold; }
+        .conf-high { color: red; font-weight: bold; }
+        textarea { width: 95%; height: 60px; margin-top: 5px; }
+        button { margin-top: 5px; }
     </style>
 </head>
 <body>
@@ -21,6 +26,7 @@
             <th>IP</th>
             <th>Flags</th>
             <th>Severity</th>
+            <th>Confidence Score</th>
             <th>Appeal</th>
         </tr>
         {% for r in results %}
@@ -36,6 +42,16 @@
                 </ul>
             </td>
             <td><strong>{{ r.severity|capitalize }}</strong></td>
+            <td>
+                {% set conf = "%.2f"|format(r.confidence) %}
+                {% if r.confidence >= 0.75 %}
+                    <span class="conf-high">{{ conf }}</span>
+                {% elif r.confidence >= 0.5 %}
+                    <span class="conf-med">{{ conf }}</span>
+                {% else %}
+                    <span class="conf-low">{{ conf }}</span>
+                {% endif %}
+            </td>
             <td>
                 {% if not r.appealed %}
                 <form action="/appeal" method="post">
@@ -84,7 +100,7 @@
             }
         });
 
-        // Line Chart (with counts per severity per date)
+        // Line Chart (counts per severity per date)
         const labels = data.timeline.map(item => item.date);
         const lowData = data.timeline.map(item => item.low);
         const mediumData = data.timeline.map(item => item.medium);
