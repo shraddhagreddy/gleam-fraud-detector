@@ -1,123 +1,75 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Fraud Detection Dashboard</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-        th { background-color: #f4f4f4; }
-        .low { background: #d4edda; }
-        .medium { background: #fff3cd; }
-        .high { background: #f8d7da; }
-        .conf-low { color: green; font-weight: bold; }
-        .conf-med { color: orange; font-weight: bold; }
-        .conf-high { color: red; font-weight: bold; }
-        textarea { width: 95%; height: 60px; margin-top: 5px; }
-        button { margin-top: 5px; }
-    </style>
+    <title>Fraud Report Dashboard</title>
 </head>
 <body>
     <h1>Fraud Detection Report</h1>
-    <table>
+    <p>Logged in as: <strong>{{ user.username }}</strong> (Role: {{ user.role }})</p>
+    <a href="{{ url_for('logout') }}">🔒 Logout</a> | 
+    <a href="{{ url_for('appeals_page') }}">📂 Appeals Dashboard</a>
+    <br><br>
+
+    <table border="1" cellpadding="6">
         <tr>
             <th>ID</th>
             <th>Email</th>
             <th>IP</th>
             <th>Flags</th>
             <th>Severity</th>
-            <th>Confidence Score</th>
+            <th>Confidence</th>
+            <th>Timestamp</th>
             <th>Appeal</th>
         </tr>
         {% for r in results %}
-        <tr class="{{ r.severity }}">
+        <tr>
             <td>{{ r.id }}</td>
             <td>{{ r.email }}</td>
             <td>{{ r.ip }}</td>
             <td>
                 <ul>
                     {% for f in r.flags %}
-                    <li>{{ f }}</li>
+                        <li>{{ f }}</li>
                     {% endfor %}
                 </ul>
             </td>
-            <td><strong>{{ r.severity|capitalize }}</strong></td>
             <td>
-                {% set conf = "%.2f"|format(r.confidence) %}
-                {% if r.confidence >= 0.75 %}
-                    <span class="conf-high">{{ conf }}</span>
-                {% elif r.confidence >= 0.5 %}
-                    <span class="conf-med">{{ conf }}</span>
+                {% if r.severity == "high" %}
+                    <span style="color:red; font-weight:bold;">HIGH</span>
+                {% elif r.severity == "medium" %}
+                    <span style="color:orange; font-weight:bold;">MEDIUM</span>
                 {% else %}
-                    <span class="conf-low">{{ conf }}</span>
+                    <span style="color:green; font-weight:bold;">LOW</span>
                 {% endif %}
             </td>
             <td>
-                {% if not r.appealed %}
-                <form action="/appeal" method="post">
-                    <input type="hidden" name="email" value="{{ r.email }}">
-                    <input type="hidden" name="ip" value="{{ r.ip }}">
-                    <textarea name="message" placeholder="Reason for appeal" required></textarea><br>
-                    <button type="submit">Submit Appeal</button>
-                </form>
+                {% if r.confidence >= 0.75 %}
+                    <span style="color:red; font-weight:bold;">{{ r.confidence }}</span>
+                {% elif r.confidence >= 0.4 %}
+                    <span style="color:orange; font-weight:bold;">{{ r.confidence }}</span>
                 {% else %}
-                ✅ Already Appealed
+                    <span style="color:green; font-weight:bold;">{{ r.confidence }}</span>
+                {% endif %}
+            </td>
+            <td>{{ r.timestamp }}</td>
+            <td>
+                {% if r.appealed %}
+                    <strong>Already appealed</strong>
+                {% else %}
+                    {% if user.role == "reviewer" or user.role == "admin" %}
+                        <form action="/appeal" method="post" style="display:inline;">
+                            <input type="hidden" name="email" value="{{ r.email }}">
+                            <input type="hidden" name="ip" value="{{ r.ip }}">
+                            <input type="text" name="message" placeholder="Reason" required>
+                            <button type="submit">✍ Submit Appeal</button>
+                        </form>
+                    {% else %}
+                        <em>Appeals not allowed</em>
+                    {% endif %}
                 {% endif %}
             </td>
         </tr>
         {% endfor %}
     </table>
-
-    <br>
-    <a href="/appeals">📋 View Appeals Dashboard</a>
-
-    <h2 class="mt-4">📊 Fraud Analytics</h2>
-    <div style="width:45%; display:inline-block;">
-        <canvas id="severityPie"></canvas>
-    </div>
-    <div style="width:50%; display:inline-block;">
-        <canvas id="timelineChart"></canvas>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-    fetch("/api/chart-data")
-    .then(res => res.json())
-    .then(data => {
-        // Pie Chart
-        new Chart(document.getElementById("severityPie"), {
-            type: "pie",
-            data: {
-                labels: ["Low", "Medium", "High"],
-                datasets: [{
-                    data: [
-                        data.severity_counts.low || 0,
-                        data.severity_counts.medium || 0,
-                        data.severity_counts.high || 0
-                    ],
-                    backgroundColor: ["#4caf50", "#ff9800", "#f44336"]
-                }]
-            }
-        });
-
-        // Line Chart (counts per severity per date)
-        const labels = data.timeline.map(item => item.date);
-        const lowData = data.timeline.map(item => item.low);
-        const mediumData = data.timeline.map(item => item.medium);
-        const highData = data.timeline.map(item => item.high);
-
-        new Chart(document.getElementById("timelineChart"), {
-            type: "line",
-            data: {
-                labels: labels,
-                datasets: [
-                    {label: "Low", data: lowData, borderColor: "#4caf50", fill: false},
-                    {label: "Medium", data: mediumData, borderColor: "#ff9800", fill: false},
-                    {label: "High", data: highData, borderColor: "#f44336", fill: false}
-                ]
-            }
-        });
-    });
-    </script>
 </body>
 </html>

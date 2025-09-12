@@ -5,6 +5,10 @@
 </head>
 <body>
     <h1>Fraud Appeals Dashboard</h1>
+    <p>Logged in as: <strong>{{ user.username }}</strong> (Role: {{ user.role }})</p>
+    <a href="{{ url_for('logout') }}">🔒 Logout</a> |
+    <a href="{{ url_for('index') }}">⬅ Back to Fraud Report</a>
+    <br><br>
 
     <table border="1" cellpadding="6">
         <tr>
@@ -22,26 +26,27 @@
             <td>{{ appeal.message if appeal.message else "—" }}</td>
             <td>
                 {% if appeal.status == "pending" %}
-                <form action="/appeals/update" method="post" style="display:inline;">
-                    <input type="hidden" name="email" value="{{ appeal.email }}">
-                    <input type="hidden" name="ip" value="{{ appeal.ip }}">
-                    <button type="submit" name="action" value="approve">✅ Approve</button>
-                </form>
-                <form action="/appeals/update" method="post" style="display:inline;">
-                    <input type="hidden" name="email" value="{{ appeal.email }}">
-                    <input type="hidden" name="ip" value="{{ appeal.ip }}">
-                    <button type="submit" name="action" value="reject">❌ Reject</button>
-                </form>
+                    {% if user.role == "admin" %}
+                        <form action="/appeals/update" method="post" style="display:inline;">
+                            <input type="hidden" name="email" value="{{ appeal.email }}">
+                            <input type="hidden" name="ip" value="{{ appeal.ip }}">
+                            <button type="submit" name="action" value="approve">✅ Approve</button>
+                        </form>
+                        <form action="/appeals/update" method="post" style="display:inline;">
+                            <input type="hidden" name="email" value="{{ appeal.email }}">
+                            <input type="hidden" name="ip" value="{{ appeal.ip }}">
+                            <button type="submit" name="action" value="reject">❌ Reject</button>
+                        </form>
+                    {% else %}
+                        <em>Only admins can decide</em>
+                    {% endif %}
                 {% else %}
-                <strong>{{ appeal.status | capitalize }}</strong>
+                    <strong>{{ appeal.status | capitalize }}</strong>
                 {% endif %}
             </td>
         </tr>
         {% endfor %}
     </table>
-
-    <br>
-    <a href="/">⬅ Back to Fraud Report</a>
 
     {% if debug %}
     <hr>
