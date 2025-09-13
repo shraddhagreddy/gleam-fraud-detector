@@ -8,7 +8,7 @@
 
 🚀 A simple proof-of-concept showing how **fraud detection + transparency** can improve Gleam campaigns. Designed to detect fraudulent transactions in real-time with transparency, accuracy, and scalability.
 
-##Highlights
+## Highlights
   - End-to-End Pipeline: Data generation → Model training → Real-time fraud detection.
   - Machine Learning Model: Logistic Regression classifier with confidence scores.
   - Interactive Dashboard: Real-time display of fraud predictions and analytics.
@@ -25,7 +25,7 @@
 - Provides **clear flags** instead of silent shadowbans.
 - Includes a simple Flask app to demo results.
 
-##Tech Stack
+## Tech Stack
   | Component       | Technology           |
   | --------------- | -------------------- |
   | Backend         | Python, Flask, Gleam |
@@ -34,7 +34,7 @@
   | Frontend        | HTML, CSS, Jinja2    |
   | Version Control | Git & GitHub         |
 
-##How It Works
+## How It Works
   - Data Simulation – Generates synthetic user transactions.
   - Model Training – Logistic regression model classifies transactions.
   - Prediction – Outputs confidence scores for each transaction.
