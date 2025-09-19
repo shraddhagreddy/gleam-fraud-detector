@@ -43,6 +43,7 @@ class Appeal(db.Model):
     status = db.Column(db.String(20), default="pending")
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
 
+# Create tables and seed default users (dev convenience)
 with app.app_context():
     db.create_all()
 
@@ -74,8 +75,12 @@ def load_user(user_id):
 DATA_FILE = "data/sample_entries.json"
 
 def load_entries():
-    with open(DATA_FILE) as f:
-        return json.load(f)
+    try:
+        with open(DATA_FILE) as f:
+            return json.load(f)
+    except FileNotFoundError:
+        print(f"⚠️ Missing data file: {DATA_FILE} — returning empty list")
+        return []
 
 # --- Load ML Model ---
 MODEL_PATH = "models/fraud_model.pkl"
@@ -88,12 +93,59 @@ except Exception as e:
 
 # --- Helper: Extract features ---
 def extract_features(entry):
-    return np.array([[ 
-        entry.get("actions_per_minute", 0),
-        1 if entry.get("domain_type") == "disposable" else 0,
-        int(entry.get("ip_asn", 0)),
-        1 if entry.get("duplicate_email", False) else 0
-    ]])
+    """
+    Convert entry into numeric features expected by model.
+    Features: actions_per_minute, domain_type (disposable=1), ip_asn, duplicate_email
+    """
+    # safe conversions
+    actions = int(entry.get("actions_per_minute", 0) or 0)
+    domain_flag = 1 if entry.get("domain_type") == "disposable" else 0
+    try:
+        ip_asn = int(entry.get("ip_asn", 0) or 0)
+    except Exception:
+        ip_asn = 0
+    duplicate = 1 if entry.get("duplicate_email", False) else 0
+
+    return np.array([[actions, domain_flag, ip_asn, duplicate]])
+
+# --- Build results helper (used by UI + APIs) ---
+def build_results(entries):
+    appeals = Appeal.query.all()
+    appealed_lookup = {(a.email, a.ip): a.status for a in appeals}
+    results = []
+
+    for i, entry in enumerate(entries, start=1):
+        flags = check_entry(entry) or []
+        confidence = 0.0
+        if model:
+            try:
+                features = extract_features(entry)
+                prob = model.predict_proba(features)[0][1]
+                confidence = round(float(prob), 2)
+            except Exception as e:
+                print(f"⚠️ Prediction failed: {e}")
+                confidence = 0.0
+
+        severity_levels = [f[1] for f in flags] if flags else []
+        if "high" in severity_levels:
+            overall_severity = "high"
+        elif "medium" in severity_levels:
+            overall_severity = "medium"
+        else:
+            overall_severity = "low"
+
+        results.append({
+            "id": i,
+            "email": entry.get("email", ""),
+            "ip": entry.get("ip", ""),
+            "flags": [f[0] for f in flags] if flags else ["No issues detected ✅"],
+            "severity": overall_severity,
+            "confidence": confidence,
+            "appealed": (entry.get("email", ""), entry.get("ip", "")) in appealed_lookup,
+            "timestamp": entry.get("timestamp", datetime.now(timezone.utc).isoformat())
+        })
+
+    return results
 
 # --- Routes ---
 @app.route("/")
@@ -141,43 +193,35 @@ def logout():
     logout_user()
     return redirect(url_for("login"))
 
-# --- Fraud detection helpers ---
-def build_results(entries):
-    appeals = Appeal.query.all()
-    appealed_lookup = {(a.email, a.ip): a.status for a in appeals}
-    results = []
+# --- Chart Data API (fixed: returns JSON-friendly dicts) ---
+@app.route("/api/chart-data")
+def chart_data():
+    entries = load_entries()
+    results = build_results(entries)
 
-    for i, entry in enumerate(entries, start=1):
-        flags = check_entry(entry)
-        confidence = 0.0
-        if model:
-            try:
-                features = extract_features(entry)
-                prob = model.predict_proba(features)[0][1]
-                confidence = round(float(prob), 2)
-            except Exception as e:
-                print(f"⚠️ Prediction failed: {e}")
+    # Count severity -> return plain dict so jsonify() works
+    severities = Counter([r.get("severity", "low") for r in results])
+    severity_counts = {
+        "low": int(severities.get("low", 0)),
+        "medium": int(severities.get("medium", 0)),
+        "high": int(severities.get("high", 0))
+    }
 
-        severity_levels = [f[1] for f in flags] if flags else []
-        if "high" in severity_levels:
-            overall_severity = "high"
-        elif "medium" in severity_levels:
-            overall_severity = "medium"
-        else:
-            overall_severity = "low"
+    # Timeline: group by date -> ensure each item has numeric low/medium/high
+    timeline = {}
+    for r in results:
+        ts = r.get("timestamp") or datetime.now(timezone.utc).isoformat()
+        date_str = ts[:10]  # YYYY-MM-DD
+        timeline.setdefault(date_str, {"low": 0, "medium": 0, "high": 0})
+        sev = r.get("severity", "low")
+        timeline[date_str][sev] = timeline[date_str].get(sev, 0) + 1
 
-        results.append({
-            "id": i,
-            "email": entry["email"],
-            "ip": entry["ip"],
-            "flags": [f[0] for f in flags] if flags else ["No issues detected ✅"],
-            "severity": overall_severity,
-            "confidence": confidence,
-            "appealed": (entry["email"], entry["ip"]) in appealed_lookup,
-            "timestamp": entry.get("timestamp", datetime.now(timezone.utc).isoformat())
-        })
+    timeline_list = [{"date": d, **counts} for d, counts in sorted(timeline.items())]
 
-    return results
+    return jsonify({
+        "severity_counts": severity_counts,
+        "timeline": timeline_list
+    })
 
 # --- Appeals dashboard ---
 @app.route("/appeals")
@@ -222,6 +266,18 @@ def submit_appeal():
 
     return redirect(url_for("appeals_page"))
 
+@app.route("/debug/reset")
+@login_required
+def reset_db():
+    if current_user.role != "admin":
+        flash("❌ Only admins can reset the DB.", "danger")
+        return redirect(url_for("appeals_page"))
+
+    # Delete all appeals
+    Appeal.query.delete()
+    db.session.commit()
+    flash("✅ Appeals database reset.", "success")
+    return redirect(url_for("appeals_page"))
 
 if __name__ == "__main__":
     app.run(debug=True)
