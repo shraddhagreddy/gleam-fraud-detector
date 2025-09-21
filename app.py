@@ -15,7 +15,8 @@ app = Flask(__name__)
 app.secret_key = "supersecretkey"  # change in production
 
 # --- Database setup ---
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///fraud.db"
+import os
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL", "sqlite:///fraud.db")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
