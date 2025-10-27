@@ -6,7 +6,7 @@
 ![GitHub issues](https://img.shields.io/github/issues/shraddhagreddy/gleam-fraud-detector)
 
 
-🚀 A simple proof-of-concept showing how **fraud detection + transparency** can improve Gleam campaigns. Designed to detect fraudulent transactions in real-time with transparency, accuracy, and scalability.
+🚀 A simple proof-of-concept showing how **fraud detection + transparency** can improve Gleam campaigns. Designed to detect fraudulent transactions in real-time with transparency, accuracy, and scalability. 
 
 ## Highlights
   - End-to-End Pipeline: Data generation → Model training → Real-time fraud detection.
