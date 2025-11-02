@@ -1,4 +1,4 @@
-# Gleam Fraud Detector (Prototype)
+# Gleam Fraud Detector (Prototype) 
 
 ![Python](https://img.shields.io/badge/python-3.10-blue)
 ![Flask](https://img.shields.io/badge/flask-2.3-green)
