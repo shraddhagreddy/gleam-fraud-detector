@@ -11,7 +11,7 @@
 ## Highlights
   - End-to-End Pipeline: Data generation → Model training → Real-time fraud detection.
   - Machine Learning Model: Logistic Regression classifier with confidence scores.
-  - Interactive Dashboard: Real-time display of fraud predictions and analytics.
+  - Interactive Dashboard: Real-time display of fraud predictions and analytics. 
   - Secure & Transparent: Traceable predictions and clear logging.
 
 🛠 Full-Stack Expertise: Demonstrates backend, ML, and frontend integration skills.
