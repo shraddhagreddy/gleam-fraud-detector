@@ -3,7 +3,7 @@
 ![Python](https://img.shields.io/badge/python-3.10-blue)
 ![Flask](https://img.shields.io/badge/flask-2.3-green)
 ![License](https://img.shields.io/badge/license-MIT-blue) 
-![GitHub issues](https://img.shields.io/github/issues/shraddhagreddy/gleam-fraud-detector)
+![GitHub issues](https://img.shields.io/github/issues/shraddhagreddy/gleam-fraud-detector) 
 
 
 🚀 A simple proof-of-concept showing how **fraud detection + transparency** can improve Gleam campaigns. Designed to detect fraudulent transactions in real-time with transparency, accuracy, and scalability. 
